@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://5w2b45syw37p"]
+
+[ext_resource type="Script" uid="uid://dsbhanaxtsdn6" path="res://scripts/multiplayer_controller.gd" id="1_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://s1b861ih0ixq" path="res://icon.svg" id="2_g2els"]
+[ext_resource type="Script" uid="uid://bkrs8ixcwu0s7" path="res://scripts/multiplayer_input.gd" id="2_qhqgy"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dqkch"]
+properties/0/path = NodePath("InputSynchronizer:input_direction_x")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("InputSynchronizer:input_direction_y")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qlg0r"]
+properties/0/path = NodePath(".:player_id")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g2els"]
+
+[node name="MultiplayerPlayer" type="CharacterBody2D"]
+script = ExtResource("1_qhqgy")
+
+[node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="."]
+unique_name_in_owner = true
+replication_config = SubResource("SceneReplicationConfig_dqkch")
+script = ExtResource("2_qhqgy")
+
+[node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_qlg0r")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_g2els")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_g2els")
+
+[node name="Camera2D" type="Camera2D" parent="."]

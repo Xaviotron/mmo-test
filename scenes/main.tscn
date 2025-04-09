@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7m8i3qd3jq5t"]
+
+[ext_resource type="Script" uid="uid://drudktjnmtqf3" path="res://scripts/network/startup.gd" id="1_0wfyh"]
+[ext_resource type="Texture2D" uid="uid://s1b861ih0ixq" path="res://icon.svg" id="2_0wfyh"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_0wfyh")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://5w2b45syw37p")
+spawn_path = NodePath("../SpawnRoot")
+spawn_limit = 10
+
+[node name="SpawnRoot" type="Node" parent="."]
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(-6, -0.999992)
+scale = Vector2(13.3516, 9.96094)
+texture = ExtResource("2_0wfyh")
+
+[node name="Button" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Join Game"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
